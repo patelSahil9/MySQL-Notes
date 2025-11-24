@@ -1,0 +1,111 @@
+executing one command multiple time can give errors
+
+CREATE DATABASE if not exists name;    #create database if not exists
+DROP DATABASE if exists name;      #delete database
+USE name;                #use database
+
+CREATE TABLE table_name (column1 datatype, column2 datatype, ...);  #create table
+
+SQL Data Types (numeric datatypes):
+Signed datatype (-128-127)- INT, SMALLINT, MEDIUMINT, BIGINT, TINYINT, YEAR
+Unsigned datatype (0-255)- INT UNSIGNED, SMALLINT UNSIGNED, MEDIUMINT UNSIGNED, BIGINT UNSIGNED, TINYINT UNSIGNED
+
+<----------------------SQL commands---------------------->
+
+DDL (Data Definition Language) - CREATE, ALTER, DROP, TRUNCATE, RENAME
+DML (Data Manipulation Language) - INSERT, UPDATE, DELETE, MERGE, CALL, EXPLAIN PLAN, LOCK TABLE
+DCL (Data Control Language) - GRANT, REVOKE
+TCL (Transaction Control Language) - COMMIT, ROLLBACK, SAVEPOINT, SET TRANSACTION
+DQL (Data Query Language) - SELECT
+
+<----------------------SAFE MODE---------------------->
+
+SET SQL_SAFE_UPDATES = 0;  #to disable safe mode
+safe mode is used to prevent sql injection
+
+<----------------------show command---------------------->
+show databases;
+show tables;
+show columns from table_name;
+
+<----------------------basic sql commands---------------------->
+SELECT * FROM table_name;     #select all columns from table
+SELECT column1, column2 FROM table_name;   #select specific columns from table
+
+INSERT INTO table_name (column1, column2, ...) VALUES (value1, value2, ...);  #insert values into table
+INSERT INTO table_name VALUES (value1, value2, ...);  #insert values into table
+
+UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;  #update values in table
+
+PRIMARY KEY - It is a column in table that uniquely identifies each row in the table. It is used to ensure that no two rows in the table have the same value for this column. (like index numbers or a unique id)
+FOREIGN KEY - It is a column in table that references a primary key in another table. It is used to establish a relationship between tables.
+
+
+<----------------------Constraints---------------------->
+
+NOT NULL - This constraint prevents null values from being inserted into the column.
+UNIQUE - This constraint prevents duplicate values from being inserted into the column.
+PRIMARY KEY - This constraint makes the column a primary key, which is a unique identifier for each row in the table.  
+
+we can make PRIMARY KEY with multiple values like 
+    PRIMARY KEY(id,name) it means the combination wont be copied
+ 
+FOREIGN KEY - This constraint makes the column a foreign key, which is a reference to a primary key in another table. 
+    FOREIGN KEY (column_name) REFERENCES table_name (column_name)
+
+DEFAULT it will set the default value for the column if no value is provided when inserting a new row into the table. 
+    salary INT DEFAULT 50000;
+
+CONSTRAINTS - it limits the values that allowd into the column.
+
+SELECT DISTINCT column_name FROM table_name;  #select unique values from column that are not repeated
+
+<----------------------Aggregates---------------------->
+
+WHERE  - it is used to filter rows based on a condition.
+ORDER BY - it is used to sort rows based on one or more columns.
+GROUP BY - it is used to group rows based on one or more columns.
+HAVING - it is used to filter groups based on a condition.
+LIMIT - it is used to limit the number of rows returned.
+
+<-------- WHERE CLAUSE -------->
+SELECT column_name(s) FROM table_name WHERE condition;
+SELECT * FROM employees WHERE age > 30 AND salary > 50000;            #select all employees older than 30 years and with a salary greater than 50000
+we can use all operators in where clause like =, !=, >, <, >=, <=, LIKE, IN, BETWEEN, IS NULL, IS NOT NULL, AND, OR, NOT, EXISTS, ANY, ALL, SOME, EVERY, MATCH, CONTAINS, STARTSWITH, ENDSWITH, CONTAINSKEYWORD
+
+<-------- ORDER BY CLAUSE -------->
+SELECT column_name(s) FROM table_name ORDER BY column_name ASC;   #sort in ascending order
+SELECT column_name(s) FROM table_name ORDER BY column_name DESC;  #sort in descending order
+
+<-------- LIMIT CLAUSE -------->
+SELECT column_name(s) FROM table_name LIMIT n;  #select the first n rows
+SELECT column_name(s) FROM table_name LIMIT n OFFSET m;  #select the first n rows starting from the mth row
+
+            SELECT → FROM → WHERE → ORDER BY → LIMIT
+
+AGGREGATE FUNCTIONS - its like inbuilt FUNCTIONS
+COUNT, SUM, AVG, MIN, MAX, GROUP BY
+SELECT COUNT(column_name) FROM table_name;
+SELECT SUM(column_name) FROM table_name;
+SELECT AVG(column_name) FROM table_name;
+
+<----------------------GROUP BY CLAUSE---------------------->
+
+SELECT column_name(s) FROM table_name GROUP BY column_name;   
+
+
+<----------------------HAVING CLAUSE---------------------->
+
+SELECT column_name(s) FROM table_name GROUP BY column_name HAVING condition;
+
+SELECT column_name(s) 
+FROM table_name 
+WHERE condition                         - it will filter the rows
+GROUP BY column_name 
+HAVING condition;                       - it will filter the groups
+ORDER BY column_name ASC;               - it will sort the rows
+
+<----------------------TABLE RELATED QUERIES---------------------->
+UPDATE table_name 
+SET column1 = value1, column2 = value2, ... 
+WHERE condition;  #update values in table
