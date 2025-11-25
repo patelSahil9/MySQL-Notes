@@ -108,4 +108,110 @@ ORDER BY column_name ASC;               - it will sort the rows
 <----------------------TABLE RELATED QUERIES---------------------->
 UPDATE table_name 
 SET column1 = value1, column2 = value2, ... 
-WHERE condition;  #update values in table
+WHERE condition;  #update values in table 
+
+DELETE FROM table_name WHERE condition;  #delete rows from table    
+
+<----------------------CASCADING FOR FOREIGN KEY---------------------->
+
+Cascading actions automatically perform operations on related records when the parent record is modified or deleted.
+(1)ON DELETE CASCADE - This action deletes the related records when the parent record is deleted.
+(2)ON UPDATE CASCADE - This action updates the related records when the parent record is updated.
+
+CREATE TABLE table_name (
+    id INT PRIMARY KEY,
+    name VARCHAR(255),
+    FOREIGN KEY (id) REFERENCES table_name(id)
+);
+
+CREATE TABLE table_name (
+    id INT PRIMARY KEY,
+    name VARCHAR(255),
+    FOREIGN KEY (id) REFERENCES table_name(id) 
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+)
+
+
+
+<-------------------------ALTER COMMAND------------------------->
+its use to modify the structure of a table by adding or deleting columns 
+
+ALTER TABLE table_name ADD COLUMN column_name datatype;
+ALTER TABLE table_name DROP COLUMN column_name;
+ALTER TABLE table_name MODIFY COLUMN column_name datatype;
+
+ALTER TABLE RENAME table_name TO new_table_name;
+
+CHANGE column - ALTER TABLE table_name CHANGE old_name column_name new_column_name datatype;
+MODIFY column - ALTER TABLE table_name MODIFY column_name new_datatype new_constraint;
+
+<-------------------------CASE EXPRESSIONS------------------------->
+
+UPDATE table_name                                       UPDATE dept
+SET column_name = CASE                                  SET difficulty = CASE id
+    WHEN condition1 THEN value1                         when id = 1 then easy
+    WHEN condition2 THEN value2                         when id = 2 then medium
+    ELSE value3                                         else hard
+END                                                     END
+WHERE condition;                                        WHERE(1,2)
+
+<-------------------------VIEW------------------------->
+
+CREATE VIEW view_name AS SELECT column_name(s) FROM table_name WHERE condition;
+CREATE VIEW view_name AS SELECT column_name(s) FROM table_name WHERE condition GROUP BY column_name(s);
+
+it will create a virtual table that is a copy of the data from another table
+
+<-------------------------TRUNCATE TABLE------------------------->
+TRUNCATE TABLE table_name;   #it will delete all the rows from the table but keep the structure of the table
+
+<------------------------------------JOINS---------------------------------------->
+
+INNER JOIN - This type of join returns only the rows that have matching values in both tables.
+
+SLECT column_name(s)
+FROM table1
+INNER JOIN table2
+ON table1.column_name = table2.column_name;
+
+LEFT JOIN - This type of join returns all the rows from the left table and only the matching rows from the right table.
+
+SLECT column_name(s)
+FROM table1
+LEFT JOIN table2
+ON table1.column_name = table2.column_name;
+
+RIGHT JOIN - This type of join returns all the rows from the right table and only the matching rows from the left table.
+
+SLECT column_name(s)
+FROM table1
+RIGHT JOIN table2    
+ON table1.column_name = table2.column_name;
+
+FULL JOIN - This type of join returns all the rows from both tables, regardless of whether there is a match or not.
+
+SLECT column_name(s)
+FROM table1
+LEFT JOIN table2
+ON table1.column_name = table2.column_name
+UNION
+SLECT column_name(s)
+FROM table1
+RIGHT JOIN table2
+ON table1.column_name = table2.column_name;
+
+LEFT EXCLUSIVE JOIN - This type of join returns all the rows from the left table and only the non-matching rows from the right table.
+
+SELECT column_name(s)
+FROM table1
+LEFT JOIN table2
+ON table1.column_name = table2.column_name
+WHERE table2.column_name IS NULL;
+
+<------------------------------------ALIASES---------------------------------------->
+
+ALIASES - it is used to give a table or column a temporary name.
+
+SELECT column_name(s) FROM table_name AS table_alias;
+SELECT column_name(s) FROM table_name table_alias;  
