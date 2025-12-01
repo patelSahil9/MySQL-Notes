@@ -215,3 +215,13 @@ ALIASES - it is used to give a table or column a temporary name.
 
 SELECT column_name(s) FROM table_name AS table_alias;
 SELECT column_name(s) FROM table_name table_alias;  
+
+
+
+| Task                                                   | SQL Window Feature                          |
+| ------------------------------------------------------ | ------------------------------------------- |
+| Find top 3 performing employees every month            | `RANK()` or `DENSE_RANK()`                  |
+| Calculate running total of sales                       | `SUM() OVER()`                              |
+| Compare each employee’s salary with department average | `AVG() OVER(PARTITION BY dept)`             |
+| Find moving average of revenue                         | `AVG() OVER(ORDER BY date ROWS BETWEEN...)` |
+| Show % contribution of each sale to total              | `SUM(amount) OVER()`                        |
